@@ -7,6 +7,11 @@
 // The goal is to change the content of our mystery table in
 // HTML to contain info about one specific pokemon. To get you
 // started, we've created some variables for you to use later on:
+const BASE_URL = "https://pokeapi.co"
+const pokemons = "api/v2/pokemon/"
+
+const URL = `${BASE_URL}/${pokemons}`
+
 
 const image = document.getElementById("image");
 const name = document.getElementById("name");
@@ -19,18 +24,57 @@ const types = document.getElementById("types");
 //    logs the results in the console.
 //    HINT --> Don't forget to invoke the function
 
-const fetchPokemons = () => {
-  /*Fetch all pokemons here*/
-};
+// *Fetch all pokemons here*
+
+// const fetchPokemons = () => {
+//   fetch(URL)
+//     .then(response => response.json())
+//     .then(data => {
+//       console.log(data)
+//     })
+
+// }
+// fetchPokemons()
+
 
 // 2) a) As you can see, we get some metadata as well as
 //    the results of the fetch. Change the console.log so
 //    that you only log the array of pokemon objects.
+// const fetchPokemons = () => {
+//   fetch(URL)
+//     .then(response => response.json())
+//     .then(data => {
+//       console.log(data.results)
+//     })
+
+// }
+// fetchPokemons()
 
 //    b) Log only the name of the first pokemon in the
 //    pokemon objects array
 
+// const fetchPokemons = () => {
+//   fetch(URL)
+//     .then(response => response.json())
+//     .then(data => {
+//       console.log(data.results[0])
+//     })
+
+// }
+// fetchPokemons()
+
 //    c) Log the names of all pokemons in the array
+const fetchPokemons = () => {
+  fetch(URL)
+    .then(response => response.json())
+    .then(data => {
+      data.results.forEach(pokemon => {
+        console.log(pokemon.name)
+      })
+    })
+}
+fetchPokemons()
+
 
 // 3) You might know that there are more than 20 pokemons
 //    in the pokedex. Add a query parameter
@@ -39,15 +83,32 @@ const fetchPokemons = () => {
 //    and pick a pokemon that you would like to continue
 //    working with. Copy the pokemon's URL.
 
+// const URL_LIMIT = `${BASE_URL}/${pokemons}/"?limit=3"`
+
+const URL_Pokemon = `${BASE_URL}/${pokemons}/17`
+console.log(URL_Pokemon)
+
 // 4) Now that we've picked a pokemon, we will do a new fetch
 //    to the URL we copied. Since that's another endpoint,
 //    we will create a new fetch inside the fetchBulbasaurData
 //    function (change the function's name to fit your pokemon).
 //    Log the data in the console and see what you find.
 
-const fetchBulbasaurData = () => {
+const fetchPidgeottoData = () => {
   /*Fetch singular pokemon here*/
-};
+  fetch(URL_Pokemon)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      image.src = data.sprites.front_default
+
+      name.innerHTML = data.name
+      weight.innerHTML = data.weight
+      height.innerHTML = data.height
+      types.innerHTML = data.types
+    })
+}
+fetchPidgeottoData()
 
 // 5) After familiarizing with the data, we will use the data
 //    to change our table. We will give you the image as a start.
